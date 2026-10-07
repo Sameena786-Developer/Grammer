@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Placement English Assistant</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+/* HEADER */
+
+header{
+    background:#111827;
+    color:white;
+    padding:18px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+.header-right{
+    font-size:14px;
+    color:#cbd5e1;
+}
+
+/* MAIN */
+
+.container{
+    width:92%;
+    max-width:1100px;
+    margin:30px auto;
+}
+
+/* HERO */
+
+.hero{
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#64748b;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.stat small{
+    color:#64748b;
+}
+
+.stat h2{
+    margin-top:7px;
+}
+
+/* NAVIGATION */
+
+.tabs{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin-bottom:20px;
+}
+
+.tab{
+    border:none;
+    background:white;
+    padding:12px 18px;
+    border-radius:9px;
+    cursor:pointer;
+    white-space:nowrap;
+    font-weight:bold;
+}
+
+.tab.active{
+    background:#2563eb;
+    color:white;
+}
+
+/* PANELS */
+
+.panel{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.panel h2{
+    margin-bottom:7px;
+}
+
+.subtitle{
+    color:#64748b;
+    margin-bottom:20px;
+}
+
+/* CONTROLS */
+
+select,
+textarea,
+input{
+    width:100%;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    padding:12px;
+    font-size:15px;
+    outline:none;
+}
+
+select:focus,
+textarea:focus,
+input:focus{
+    border-color:#2563eb;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin:15px 0 7px;
+}
+
+textarea{
+    min-height:150px;
+    resize:vertical;
+}
+
+/* BUTTONS */
+
+button{
+    font-family:inherit;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.primary:hover{
+    background:#1d4ed8;
+}
+
+.secondary{
+    background:#e2e8f0;
+    color:#172033;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+/* QUESTION */
+
+.question{
+    background:#f8fafc;
+    padding:20px;
+    border-radius:10px;
+    margin-top:20px;
+    border-left:4px solid #2563eb;
+}
+
+.question-text{
+    font-size:18px;
+    font-weight:bold;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.option{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:white;
+    border:1px solid #cbd5e1;
+    padding:13px;
+    margin:8px 0;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.option.selected{
+    border-color:#2563eb;
+    background:#dbeafe;
+}
+
+.option.correct{
+    border-color:#16a34a;
+    background:#dcfce7;
+}
+
+.option.wrong{
+    border-color:#dc2626;
+    background:#fee2e2;
+}
+
+/* RESULT */
+
+.result{
+    margin-top:20px;
+    padding:18px;
+    border-radius:10px;
+    background:#f8fafc;
+    display:none;
+}
+
+.result h3{
+    margin-bottom:10px;
+}
+
+.correct-text{
+    color:#15803d;
+    font-weight:bold;
+}
+
+.wrong-text{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+.explanation{
+    margin-top:10px;
+    line-height:1.6;
+}
+
+/* PROGRESS */
+
+.progress-container{
+    margin-top:15px;
+}
+
+.progress-bar{
+    width:100%;
+    height:12px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:#2563eb;
+    transition:.4s;
+}
+
+/* COMMUNICATION */
+
+.feedback{
+    margin-top:20px;
+    background:#f8fafc;
+    border-left:4px solid #2563eb;
+    padding:18px;
+    line-height:1.7;
+    white-space:pre-line;
+}
+
+/* INTERVIEW */
+
+.interviewer{
+    background:#111827;
+    color:white;
+    padding:20px;
+    border-radius:10px;
+    line-height:1.6;
+    margin-top:20px;
+}
+
+/* VOCABULARY */
+
+.word-card{
+    margin-top:20px;
+    padding:25px;
+    background:#eff6ff;
+    border-radius:12px;
+}
+
+.word{
+    font-size:30px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.meaning{
+    margin-top:10px;
+    line-height:1.6;
+}
+
+.vocab-section{
+    margin-top:12px;
+}
+
+.tag{
+    display:inline-block;
+    background:white;
+    border:1px solid #bfdbfe;
+    padding:6px 10px;
+    border-radius:20px;
+    margin:4px;
+    font-size:13px;
+}
+
+/* WEAK TOPICS */
+
+.topic-row{
+    margin:15px 0;
+}
+
+.topic-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:5px;
+}
+
+.topic-bar{
+    height:10px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.topic-fill{
+    height:100%;
+    background:#2563eb;
+}
+
+/* HIDDEN */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#64748b;
+    font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    header{
+        padding:16px 4%;
+    }
+
+    .header-right{
+        display:none;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .dashboard{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .container{
+        width:94%;
+    }
+
+    .panel{
+        padding:18px;
+    }
+
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+```
+<div class="logo">
+    Placement<span>English</span>
+</div>
+
+<div class="header-right">
+    Your personal placement preparation assistant
+</div>
+```
+
+</header>
+
+<div class="container">
+
+```
+<div class="hero">
+
+    <h1>Placement English Assistant</h1>
+
+    <p>
+        Practice grammar, verbal ability, vocabulary and
+        communication for campus placements.
+    </p>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+    <div class="stat">
+        <small>Questions Solved</small>
+        <h2 id="totalQuestions">0</h2>
+    </div>
+
+    <div class="stat">
+        <small>Correct Answers</small>
+        <h2 id="correctAnswers">0</h2>
+    </div>
+
+    <div class="stat">
+        <small>Accuracy</small>
+        <h2 id="accuracy">0%</h2>
+    </div>
+
+    <div class="stat">
+        <small>Best Score</small>
+        <h2 id="bestScore">0%</h2>
+    </div>
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<div class="tabs">
+
+    <button class="tab active"
+            onclick="showPage('practice',this)">
+        🧠 Practice
+    </button>
+
+    <button class="tab"
+            onclick="showPage('vocabulary',this)">
+        📚 Vocabulary
+    </button>
+
+    <button class="tab"
+            onclick="showPage('communication',this)">
+        🗣️ Communication
+    </button>
+
+    <button class="tab"
+            onclick="showPage('interview',this)">
+        💼 Interview
+    </button>
+
+    <button class="tab"
+            onclick="showPage('progress',this)">
+        📊 Progress
+    </button>
+
+</div>
+
+
+<!-- ================= PRACTICE ================= -->
+
+<div class="page active" id="practice">
+
+    <div class="panel">
+
+        <h2>Practice</h2>
+
+        <p class="subtitle">
+            Solve placement-style questions and learn from your mistakes.
+        </p>
+
+
+        <label>Choose Topic</label>
+
+        <select id="practiceTopic">
+
+            <option value="grammar">Grammar</option>
+
+            <option value="sentence">
+                Sentence Correction
+            </option>
+
+            <option value="vocabulary">
+                Vocabulary
+            </option>
+
+            <option value="verbal">
+                Verbal Ability
+            </option>
+
+            <option value="preposition">
+                Prepositions
+            </option>
+
+            <option value="tenses">
+                Tenses
+            </option>
+
+            <option value="subject">
+                Subject-Verb Agreement
+            </option>
+
+            <option value="para">
+                Para Jumbles
+            </option>
+
+        </select>
+
+
+        <label>Difficulty</label>
+
+        <select id="difficulty">
+
+            <option>Easy</option>
+            <option selected>Medium</option>
+            <option>Hard</option>
+
+        </select>
+
+
+        <button class="primary"
+                onclick="newQuestion()">
+
+            Generate Question
+
+        </button>
+
+
+        <div id="questionArea" style="display:none">
+
+            <div class="question">
+
+                <div class="question-text"
+                     id="questionText">
+                </div>
+
+                <div id="options"></div>
+
+            </div>
+
+
+            <button class="primary"
+                    id="submitAnswer"
+                    onclick="submitAnswer()">
+
+                Submit Answer
+
+            </button>
+
+
+            <button class="secondary"
+                    onclick="newQuestion()">
+
+                Next Question
+
+            </button>
+
+
+            <div class="result"
+                 id="questionResult">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= VOCABULARY ================= -->
+
+<div class="page" id="vocabulary">
+
+    <div class="panel">
+
+        <h2>Vocabulary Builder</h2>
+
+        <p class="subtitle">
+            Learn useful words frequently seen in placement tests
+            and interviews.
+        </p>
+
+
+        <button class="primary"
+                onclick="newWord()">
+
+            Learn New Word
+
+        </button>
+
+
+        <div class="word-card"
+             id="wordCard">
+
+            <div class="word"
+                 id="word">
+
+                Click "Learn New Word"
+
+            </div>
+
+            <div class="meaning"
+                 id="meaning">
+
+            </div>
+
+            <div class="vocab-section"
+                 id="synonyms">
+
+            </div>
+
+            <div class="vocab-section"
+                 id="example">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= COMMUNICATION ================= -->
+
+<div class="page" id="communication">
+
+    <div class="panel">
+
+        <h2>Communication Practice</h2>
+
+        <p class="subtitle">
+            Write your answer and check your grammar,
+            clarity and professionalism.
+        </p>
+
+
+        <label>Situation</label>
+
+        <select id="communicationQuestion">
+
+            <option>
+                Tell me about yourself.
+            </option>
+
+            <option>
+                Explain your project.
+            </option>
+
+            <option>
+                What are your strengths?
+            </option>
+
+            <option>
+                What is your weakness?
+            </option>
+
+            <option>
+                Why should we hire you?
+            </option>
+
+            <option>
+                Where do you see yourself in five years?
+            </option>
+
+            <option>
+                Describe a difficult problem you solved.
+            </option>
+
+        </select>
+
+
+        <label>Your Answer</label>
+
+        <textarea
+            id="communicationAnswer"
+            placeholder="Write your answer as you would speak in an interview..."
+        ></textarea>
+
+
+        <button class="primary"
+                onclick="evaluateCommunication()">
+
+            Evaluate My Answer
+
+        </button>
+
+
+        <div class="feedback"
+             id="communicationFeedback"
+             style="display:none">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= INTERVIEW ================= -->
+
+<div class="page" id="interview">
+
+    <div class="panel">
+
+        <h2>Placement Interview</h2>
+
+        <p class="subtitle">
+            Practice common HR and placement interview questions.
+        </p>
+
+
+        <button class="primary"
+                onclick="newInterviewQuestion()">
+
+            Start Interview
+
+        </button>
+
+
+        <div id="interviewArea"
+             style="display:none">
+
+            <div class="interviewer">
+
+                <strong>Interviewer</strong>
+
+                <p id="interviewQuestion"
+                   style="margin-top:10px">
+                </p>
+
+            </div>
+
+
+            <label>Your Answer</label>
+
+            <textarea
+                id="interviewAnswer"
+                placeholder="Type your interview answer..."
+            ></textarea>
+
+
+            <button class="primary"
+                    onclick="evaluateInterview()">
+
+                Submit Answer
+
+            </button>
+
+
+            <div class="feedback"
+                 id="interviewFeedback"
+                 style="display:none">
+            </div>
+
+
+            <button class="secondary"
+                    onclick="newInterviewQuestion()">
+
+                Next Question
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PROGRESS ================= -->
+
+<div class="page" id="progress">
+
+    <div class="panel">
+
+        <h2>Your Progress</h2>
+
+        <p class="subtitle">
+            See where you need more practice.
+        </p>
+
+
+        <div id="topicProgress"></div>
+
+
+        <button class="secondary"
+                onclick="resetProgress()">
+
+            Reset Progress
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<footer>
+    Placement English Assistant • Built with HTML, CSS & JavaScript
+</footer>
+
+<script>
+
+/* =========================================================
+   QUESTION DATABASE
+========================================================= */
+
+const questions = {
+
+grammar: [
+
+{
+q:"Choose the grammatically correct sentence.",
+options:[
+"She don't like coffee.",
+"She doesn't likes coffee.",
+"She doesn't like coffee.",
+"She not like coffee."
+],
+answer:2,
+explanation:
+"With 'she', use 'doesn't' + base verb: She doesn't like."
+},
+
+{
+q:"Choose the correct sentence.",
+options:[
+"He have completed his work.",
+"He has completed his work.",
+"He having completed his work.",
+"He has complete his work."
+],
+answer:1,
+explanation:
+"'He' takes 'has', followed by the past participle 'completed'."
+},
+
+{
+q:"Choose the correct sentence.",
+options:[
+"I am knowing the answer.",
+"I know the answer.",
+"I knows the answer.",
+"I knowing the answer."
+],
+answer:1,
+explanation:
+"'Know' is normally used in the simple present, not the continuous form."
+}
+
+],
+
+sentence:[
+
+{
+q:"Identify the correct sentence.",
+options:[
+"Neither of the students were present.",
+"Neither of the students was present.",
+"Neither students was present.",
+"Neither of students were present."
+],
+answer:1,
+explanation:
+"'Neither' is treated as singular in standard usage, so use 'was'."
+},
+
+{
+q:"Choose the sentence with correct grammar.",
+options:[
+"She is senior than me.",
+"She is senior to me.",
+"She is more senior than me.",
+"She senior to me."
+],
+answer:1,
+explanation:
+"The standard construction is 'senior to', not 'senior than'."
+}
+
+],
+
+vocabulary:[
+
+{
+q:"What is the closest meaning of 'ABUNDANT'?",
+options:[
+"Rare",
+"Plentiful",
+"Small",
+"Empty"
+],
+answer:1,
+explanation:
+"Abundant means available in large quantities or plentiful."
+},
+
+{
+q:"What is the opposite of 'RELUCTANT'?",
+options:[
+"Unwilling",
+"Eager",
+"Careless",
+"Slow"
+],
+answer:1,
+explanation:
+"Reluctant means unwilling. Its opposite is eager or willing."
+},
+
+{
+q:"What does 'MITIGATE' mean?",
+options:[
+"To increase",
+"To reduce the severity",
+"To completely remove",
+"To ignore"
+],
+answer:1,
+explanation:
+"Mitigate means to make something less severe, harmful or painful."
+}
+
+],
+
+verbal:[
+
+{
+q:"Choose the word that best completes the sentence: 'The manager asked the employees to ___ the report before submitting it.'",
+options:[
+"review",
+"revenge",
+"revise",
+"remove"
+],
+answer:0,
+explanation:
+"'Review' means to examine something carefully before submission."
+},
+
+{
+q:"Choose the best word: 'The candidate was praised for his ___ communication skills.'",
+options:[
+"effective",
+"effect",
+"effectively",
+"effects"
+],
+answer:0,
+explanation:
+"'Effective' is an adjective modifying 'communication skills'."
+}
+
+],
+
+preposition:[
+
+{
+q:"She is good ___ mathematics.",
+options:[
+"in",
+"at",
+"on",
+"with"
+],
+answer:1,
+explanation:
+"The standard expression is 'good at something'."
+},
+
+{
+q:"He arrived ___ the airport at 7 AM.",
+options:[
+"at",
+"on",
+"in",
+"to"
+],
+answer:0,
+explanation:
+"We normally use 'at' for specific points or places such as an airport."
+}
+
+],
+
+tenses:[
+
+{
+q:"I ___ this book three times.",
+options:[
+"read",
+"have read",
+"am reading",
+"had read"
+],
+answer:1,
+explanation:
+"Present perfect is suitable when the exact past time is not specified."
+},
+
+{
+q:"She ___ to college every day.",
+options:[
+"go",
+"goes",
+"going",
+"gone"
+],
+answer:1,
+explanation:
+"With 'she' in the simple present, use 'goes'."
+}
+
+],
+
+subject:[
+
+{
+q:"The list of items ___ on the table.",
+options:[
+"are",
+"were",
+"is",
+"have"
+],
+answer:2,
+explanation:
+"The subject is 'list', which is singular. Therefore use 'is'."
+},
+
+{
+q:"Each of the students ___ a certificate.",
+options:[
+"receive",
+"receives",
+"receiving",
+"have received"
+],
+answer:1,
+explanation:
+"'Each' is singular, so the verb should be 'receives'."
+}
+
+],
+
+para:[
+
+{
+q:"Arrange the sentences in the most logical order.",
+options:[
+"A → B → C → D",
+"B → A → D → C",
+"C → A → B → D",
+"D → C → A → B"
+],
+answer:0,
+explanation:
+"A introduces the topic, B develops it, C adds the next point and D concludes."
+},
+
+{
+q:"Which should normally come first in a paragraph?",
+options:[
+"A concluding statement",
+"A detailed example",
+"The introduction of the main idea",
+"A reference to an earlier sentence"
+],
+answer:2,
+explanation:
+"A paragraph normally begins by introducing its main idea."
+}
+
+]
+
+};
+
+
+/* =========================================================
+   VOCABULARY
+========================================================= */
+
+const vocabulary = [
+
+{
+word:"Pragmatic",
+meaning:"Dealing with problems in a practical and realistic way.",
+synonyms:["Practical","Realistic","Sensible"],
+example:"A pragmatic approach is often useful when solving real-world problems."
+},
+
+{
+word:"Diligent",
+meaning:"Showing careful and persistent effort.",
+synonyms:["Hardworking","Dedicated","Industrious"],
+example:"She is a diligent student who consistently completes her assignments."
+},
+
+{
+word:"Versatile",
+meaning:"Able to adapt to many different activities or situations.",
+synonyms:["Adaptable","Flexible","Multitalented"],
+example:"A versatile software engineer can work with different technologies."
+},
+
+{
+word:"Concise",
+meaning:"Expressing something clearly using few words.",
+synonyms:["Brief","Short","Clear"],
+example:"Keep your interview answers concise and relevant."
+},
+
+{
+word:"Resilient",
+meaning:"Able to recover quickly from difficulties.",
+synonyms:["Strong","Persistent","Tough"],
+example:"A resilient candidate learns from failure instead of giving up."
+},
+
+{
+word:"Ambiguous",
+meaning:"Open to more than one interpretation.",
+synonyms:["Unclear","Vague","Uncertain"],
+example:"The interviewer asked an ambiguous question."
+},
+
+{
+word:"Credible",
+meaning:"Able to be trusted or believed.",
+synonyms:["Reliable","Trustworthy","Believable"],
+example:"Give credible examples when describing your project."
+},
+
+{
+word:"Articulate",
+meaning:"Able to express ideas clearly and effectively.",
+synonyms:["Clear","Expressive","Eloquent"],
+example:"A good candidate should be able to articulate technical ideas clearly."
+}
+
+];
+
+
+/* =========================================================
+   INTERVIEW QUESTIONS
+========================================================= */
+
+const interviewQuestions = [
+
+"Tell me about yourself.",
+
+"Why should we hire you?",
+
+"What are your strengths?",
+
+"What is your biggest weakness?",
+
+"Why do you want to join our company?",
+
+"Where do you see yourself in five years?",
+
+"Tell me about a difficult problem you solved.",
+
+"Describe a situation where you worked as part of a team.",
+
+"Tell me about a failure and what you learned from it.",
+
+"Why did you choose your engineering branch?",
+
+"Explain one project that you are proud of.",
+
+"How do you handle pressure and deadlines?",
+
+"What motivates you to learn new technologies?",
+
+"How would you handle a disagreement with a teammate?"
+
+];
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+let progress = JSON.parse(
+    localStorage.getItem("placementProgress")
+) || {
+
+    total:0,
+    correct:0,
+    best:0,
+
+    topics:{
+        grammar:{total:0,correct:0},
+        sentence:{total:0,correct:0},
+        vocabulary:{total:0,correct:0},
+        verbal:{total:0,correct:0},
+        preposition:{total:0,correct:0},
+        tenses:{total:0,correct:0},
+        subject:{total:0,correct:0},
+        para:{total:0,correct:0}
+    }
+
+};
+
+
+let currentQuestion = null;
+let selectedOption = null;
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(page,button){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    document.getElementById(page)
+        .classList.add("active");
+
+
+    document.querySelectorAll(".tab")
+        .forEach(t=>t.classList.remove("active"));
+
+    button.classList.add("active");
+
+
+    if(page==="progress"){
+        displayProgress();
+    }
+
+}
+
+
+/* =========================================================
+   NEW QUESTION
+========================================================= */
+
+function newQuestion(){
+
+    const topic =
+        document.getElementById("practiceTopic").value;
+
+    const pool =
+        questions[topic];
+
+    const random =
+        Math.floor(Math.random()*pool.length);
+
+    currentQuestion = pool[random];
+
+    selectedOption = null;
+
+
+    document.getElementById("questionArea")
+        .style.display="block";
+
+    document.getElementById("questionResult")
+        .style.display="none";
+
+
+    document.getElementById("questionText")
+        .textContent=currentQuestion.q;
+
+
+    const options =
+        document.getElementById("options");
+
+    options.innerHTML="";
+
+
+    currentQuestion.options.forEach((option,index)=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className="option";
+
+        button.textContent =
+            String.fromCharCode(65+index)+". "+option;
+
+        button.onclick=()=>{
+
+            document.querySelectorAll(".option")
+                .forEach(x=>x.classList.remove("selected"));
+
+            button.classList.add("selected");
+
+            selectedOption=index;
+
+        };
+
+        options.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================================================
+   SUBMIT ANSWER
+========================================================= */
+
+function submitAnswer(){
+
+    if(currentQuestion===null){
+
+        return;
+
+    }
+
+
+    if(selectedOption===null){
+
+        alert("Please select an answer first.");
+
+        return;
+
+    }
+
+
+    const topic =
+        document.getElementById("practiceTopic").value;
+
+
+    const correct =
+        selectedOption===currentQuestion.answer;
+
+
+    progress.total++;
+
+    progress.topics[topic].total++;
+
+
+    const buttons =
+        document.querySelectorAll(".option");
+
+
+    buttons.forEach((button,index)=>{
+
+        button.disabled=true;
+
+        if(index===currentQuestion.answer){
+            button.classList.add("correct");
+        }
+
+        if(index===selectedOption &&
+           selectedOption!==currentQuestion.answer){
+
+            button.classList.add("wrong");
+
+        }
+
+    });
+
+
+    if(correct){
+
+        progress.correct++;
+
+        progress.topics[topic].correct++;
+
+    }
+
+
+    const accuracy =
+        Math.round(
+            progress.correct/progress.total*100
+        );
+
+
+    if(accuracy>progress.best){
+
+        progress.best=accuracy;
+
+    }
+
+
+    saveProgress();
+
+
+    const result =
+        document.getElementById("questionResult");
+
+
+    result.style.display="block";
+
+
+    result.innerHTML = correct
+
+        ? `
+            <h3 class="correct-text">
+                ✓ Correct!
+            </h3>
+
+            <div class="explanation">
+                ${currentQuestion.explanation}
+            </div>
+          `
+
+        : `
+            <h3 class="wrong-text">
+                ✗ Incorrect
+            </h3>
+
+            <div class="explanation">
+                <strong>Correct answer:</strong>
+                ${currentQuestion.options[currentQuestion.answer]}
+                <br><br>
+                ${currentQuestion.explanation}
+            </div>
+          `;
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   VOCABULARY
+========================================================= */
+
+function newWord(){
+
+    const item =
+        vocabulary[
+            Math.floor(Math.random()*vocabulary.length)
+        ];
+
+
+    document.getElementById("word")
+        .textContent=item.word;
+
+
+    document.getElementById("meaning")
+        .innerHTML=
+        "<strong>Meaning:</strong> "+item.meaning;
+
+
+    document.getElementById("synonyms")
+        .innerHTML=
+        "<strong>Synonyms:</strong><br>"+
+        item.synonyms
+            .map(x=>`<span class="tag">${x}</span>`)
+            .join("");
+
+
+    document.getElementById("example")
+        .innerHTML=
+        "<strong>Example:</strong> "+item.example;
+
+}
+
+
+/* =========================================================
+   COMMUNICATION EVALUATION
+========================================================= */
+
+function evaluateCommunication(){
+
+    const answer =
+        document.getElementById("communicationAnswer")
+        .value.trim();
+
+
+    if(!answer){
+
+        alert("Write your answer first.");
+
+        return;
+
+    }
+
+
+    const words =
+        answer.split(/\s+/).length;
+
+
+    const sentences =
+        answer.split(/[.!?]+/)
+        .filter(x=>x.trim()).length;
+
+
+    const commonMistakes = [];
+
+
+    if(/\bmyself\s+[A-Z]/i.test(answer)){
+
+        commonMistakes.push(
+            "Avoid starting an introduction with 'Myself'. Use 'My name is...' instead."
+        );
+
+    }
+
+
+    if(/\bi am good in\b/i.test(answer)){
+
+        commonMistakes.push(
+            "Use 'good at' instead of 'good in'."
+        );
+
+    }
+
+
+    if(/\bi have interest\b/i.test(answer)){
+
+        commonMistakes.push(
+            "Use 'I am interested in...' instead of 'I have interest...'."
+        );
+
+    }
+
+
+    if(/\bdiscuss about\b/i.test(answer)){
+
+        commonMistakes.push(
+            "Use 'discuss something', not 'discuss about something'."
+        );
+
+    }
+
+
+    let score=5;
+
+
+    if(words>=30) score+=1;
+
+    if(words>=50) score+=1;
+
+    if(sentences>=3) score+=1;
+
+    if(commonMistakes.length===0) score+=2;
+
+    if(score>10) score=10;
+
+
+    let feedback =
+
+`Communication Score: ${score}/10
+
+Words used: ${words}
+
+Sentences: ${sentences}
+
+`;
+
+
+    if(commonMistakes.length){
+
+        feedback +=
+`Grammar / usage improvements:
+
+• ${commonMistakes.join("\n• ")}
+
+`;
+
+    }else{
+
+        feedback +=
+`Grammar:
+
+No obvious common grammar mistakes detected.
+
+`;
+
+    }
+
+
+    feedback +=
+`Clarity:
+
+${words<20
+?"Your answer is too short. Add specific details and examples."
+:"Your answer has enough content. Try to keep it focused and relevant."}
+
+Professional communication:
+
+Use short, clear sentences. Avoid memorized-sounding phrases and explain your experience naturally.
+
+Tip:
+
+For placement answers, use this structure:
+
+1. Direct answer
+2. Supporting example
+3. Short conclusion`;
+
+
+    const box =
+        document.getElementById("communicationFeedback");
+
+
+    box.style.display="block";
+
+    box.textContent=feedback;
+
+}
+
+
+/* =========================================================
+   INTERVIEW
+========================================================= */
+
+function newInterviewQuestion(){
+
+    const question =
+        interviewQuestions[
+            Math.floor(Math.random()*interviewQuestions.length)
+        ];
+
+
+    document.getElementById("interviewArea")
+        .style.display="block";
+
+
+    document.getElementById("interviewQuestion")
+        .textContent=question;
+
+
+    document.getElementById("interviewAnswer")
+        .value="";
+
+
+    document.getElementById("interviewFeedback")
+        .style.display="none";
+
+}
+
+
+function evaluateInterview(){
+
+    const answer =
+        document.getElementById("interviewAnswer")
+        .value.trim();
+
+
+    if(!answer){
+
+        alert("Write your answer first.");
+
+        return;
+
+    }
+
+
+    const words =
+        answer.split(/\s+/).length;
+
+
+    let score=5;
+
+
+    if(words>=30) score++;
+
+    if(words>=50) score++;
+
+    if(words>=80) score++;
+
+
+    const fillers =
+        (
+            answer.match(
+                /\b(umm|uh|like|actually|basically|you know)\b/gi
+            ) || []
+        ).length;
+
+
+    if(fillers===0) score++;
+
+    if(score>10) score=10;
+
+
+    let feedback =
+
+`Interview Evaluation
+
+Score: ${score}/10
+
+Content:
+${words<25
+?"Your answer is too short. Give a specific example."
+:"Your answer contains reasonable detail."}
+
+Communication:
+${fillers
+?`You used ${fillers} filler word(s). Try to reduce them.`
+:"No obvious filler-word problem detected."}
+
+Structure:
+
+A strong interview answer usually follows:
+
+• Direct answer
+• Explanation
+• Real example
+• Short conclusion
+
+Improvement:
+
+Do not try to use complicated English. Clear and natural English is better than difficult vocabulary.
+
+Practice tip:
+
+Record yourself answering this question and try to answer it again more clearly in 60–90 seconds.`;
+
+
+    const box =
+        document.getElementById("interviewFeedback");
+
+
+    box.style.display="block";
+
+    box.textContent=feedback;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function displayProgress(){
+
+    const container =
+        document.getElementById("topicProgress");
+
+
+    const names={
+        grammar:"Grammar",
+        sentence:"Sentence Correction",
+        vocabulary:"Vocabulary",
+        verbal:"Verbal Ability",
+        preposition:"Prepositions",
+        tenses:"Tenses",
+        subject:"Subject-Verb Agreement",
+        para:"Para Jumbles"
+    };
+
+
+    container.innerHTML="";
+
+
+    Object.keys(progress.topics).forEach(topic=>{
+
+        const data =
+            progress.topics[topic];
+
+
+        const accuracy =
+            data.total===0
+            ?0
+            :Math.round(
+                data.correct/data.total*100
+            );
+
+
+        container.innerHTML += `
+
+        <div class="topic-row">
+
+            <div class="topic-header">
+
+                <strong>${names[topic]}</strong>
+
+                <span>
+                    ${accuracy}% (${data.correct}/${data.total})
+                </span>
+
+            </div>
+
+            <div class="topic-bar">
+
+                <div
+                    class="topic-fill"
+                    style="width:${accuracy}%">
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function saveProgress(){
+
+    localStorage.setItem(
+        "placementProgress",
+        JSON.stringify(progress)
+    );
+
+}
+
+
+function resetProgress(){
+
+    if(!confirm(
+        "Are you sure you want to reset all progress?"
+    )){
+
+        return;
+
+    }
+
+
+    progress={
+
+        total:0,
+        correct:0,
+        best:0,
+
+        topics:{
+            grammar:{total:0,correct:0},
+            sentence:{total:0,correct:0},
+            vocabulary:{total:0,correct:0},
+            verbal:{total:0,correct:0},
+            preposition:{total:0,correct:0},
+            tenses:{total:0,correct:0},
+            subject:{total:0,correct:0},
+            para:{total:0,correct:0}
+        }
+
+    };
+
+
+    saveProgress();
+
+    updateDashboard();
+
+    displayProgress();
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard(){
+
+    document.getElementById("totalQuestions")
+        .textContent=progress.total;
+
+
+    document.getElementById("correctAnswers")
+        .textContent=progress.correct;
+
+
+    const accuracy =
+        progress.total===0
+        ?0
+        :Math.round(
+            progress.correct/progress.total*100
+        );
+
+
+    document.getElementById("accuracy")
+        .textContent=accuracy+"%";
+
+
+    document.getElementById("bestScore")
+        .textContent=progress.best+"%";
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateDashboard();
+
+newWord();
+
+</script>
+
+</body>
+</html>
